@@ -6,23 +6,10 @@ import {
 
 
 class DishDetail extends Component{
-
-  renderDetails(details){
-    if (details != null){
-      return(
-        <div>
-          <Card key={details.id}>
-            <CardImg width="100%" src={details.image} alt={details.name} />
-            <CardTitle>{details.name}</CardTitle>
-            <CardText>{details.description}</CardText>
-          </Card>
-      </div>
-      );
-    }
-  }
-
+  
   renderComments(comments){
     if(comments != null){
+      console.log(comments);
       const listComments = comments.map((comment) => {
         return(
           <div key={comment.id}>
@@ -37,9 +24,7 @@ class DishDetail extends Component{
           </div>
         );
       });
-
-      return(listComments);
-     
+      return(listComments);    
     }else{
       return(
       <div></div>
@@ -48,10 +33,17 @@ class DishDetail extends Component{
   }
 
   render() {
+
+    const details = this.props.details;
+   
     return (
       <div  className="row">
         <div className="col-12 col-md-5 m-1">
-          {this.renderDetails(this.props.details)}
+          <Card key={details.id}>
+            <CardImg width="100%" src={details.image} alt={details.name} />
+            <CardTitle>{details.name}</CardTitle>
+            <CardText>{details.description}</CardText>
+          </Card>
         </div>
         <div className="col-12 col-md-5 m-1">
           <h4>Comments</h4>
