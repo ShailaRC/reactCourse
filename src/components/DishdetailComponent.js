@@ -4,6 +4,7 @@ import {
   CardTitle, CardBody, Breadcrumb, BreadcrumbItem 
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Comment from './CommentForm';
 
 function RenderDish({ dish }) {
   if (dish != null) {
@@ -39,11 +40,12 @@ function RenderComments({ comments }) {
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         {listComments}
+        <Comment />
       </div>
     );
   } else {
     return (
-      <div></div>
+      <div><Comment /></div>
     );
   }
 }
