@@ -1,86 +1,15 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import {
-  Card, CardImg, CardText,
-  CardTitle, CardBody, Breadcrumb, BreadcrumbItem ,
-  Button, Modal, ModalHeader, ModalBody, Row, Col, Label
+    Button, Modal, ModalHeader, ModalBody,
+    Row, Col, Label
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
-
-function RenderDish({ dish }) {
-  if (dish != null) {
-    return (
-      <div className="col-12 col-md-5 m-1">
-        <Card key={dish.id}>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  } else {
-    return (<div></div>);
-  }
-}
-
-function RenderComments({ comments }) {
-  if (comments != null) {
-    const listComments = comments.map((comment) => {
-      return (
-
-        <ul key={comment.id} className="list-unstyled">
-          <li>{comment.comment}</li>
-          <li>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}</li>
-        </ul>
-
-      );
-    });
-    return (
-      <div className="col-12 col-md-5 m-1">
-        <h4>Comments</h4>
-        {listComments}
-        <CommentForm />
-      </div>
-    );
-  } else {
-    return (
-      <div><CommentForm /></div>
-    );
-  }
-}
-
-const DishDetail = (props) => {
-  if (props.dish == null) {
-    return (<div></div>);
-  }
-  return (
-    <div className="container">
-      <div className="row">
-        <Breadcrumb>
-          <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-          <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-        </Breadcrumb>
-        <div className="col-12">
-          <h3>{props.dish.name}</h3>
-          <hr />
-        </div>
-      </div>
-      <div className="row">
-        <RenderDish dish={props.dish} />
-        <RenderComments comments={props.comments} />
-      </div>
-    </div>
-  );
-}
-
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-class CommentForm extends Component {
+class Comment extends Component {
 
     constructor(props) {
         super(props);
@@ -108,7 +37,7 @@ class CommentForm extends Component {
     render() {
         return (
             <React.Fragment>
-                <Button outline onClick={this.toggleModal}><span className="fa fa-lg fa-pencil"></span> Submmit Comment</Button>
+                <Button outline onClick={this.toggleModal}><span className="fa fa-edit fa-lg"></span> Submmit Comment</Button>
                 <div className="col-12 col-md-9">
                     <Modal isOpen={this.state.isModalCommentOpen} toggle={this.toggleModal}>
                         <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
@@ -171,5 +100,5 @@ class CommentForm extends Component {
     }
 }
 
+export default Comment;
 
-export default DishDetail;
