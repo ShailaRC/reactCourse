@@ -41,12 +41,12 @@ function RenderComments({ comments }) {
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         {listComments}
-        <Comment />
+        <CommentForm />
       </div>
     );
   } else {
     return (
-      <div><Comment /></div>
+      <div><CommentForm /></div>
     );
   }
 }
@@ -80,7 +80,7 @@ const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
 
-class Comment extends Component {
+class CommentForm extends Component {
 
     constructor(props) {
         super(props);
@@ -108,7 +108,7 @@ class Comment extends Component {
     render() {
         return (
             <React.Fragment>
-                <Button outline onClick={this.toggleModal}><span className="fa fa-edit fa-lg"></span> Submmit Comment</Button>
+                <Button outline onClick={this.toggleModal}><span className="fa fa-lg fa-pencil"></span> Submmit Comment</Button>
                 <div className="col-12 col-md-9">
                     <Modal isOpen={this.state.isModalCommentOpen} toggle={this.toggleModal}>
                         <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
