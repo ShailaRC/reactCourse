@@ -1,33 +1,50 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
-function RenderLeader ({leader}) {
-    return(
-        <div key={leader.id} className="col-12">
-            <Media  tag="li">
-                <Media left middle>
-                    <Media object src={leader.image} alt={leader.name} />
+function RenderLeader ({ leader }) {
+   
+        return(
+            <div key={leader.id} className="col-12">
+                <Media  tag="li">
+                    <Media left middle>
+                        <Media object src={baseUrl + leader.image} alt={leader.name} />
+                    </Media>
+                    <Media body className="ml-5">
+                        <Media heading>{leader.name}</Media>
+                        <p>{leader.designation}</p>
+                        <p>{leader.description}</p>
+                    </Media>
                 </Media>
-                <Media body className="ml-5">
-                    <Media heading>{leader.name}</Media>
-                    <p>{leader.designation}</p>
-                    <p>{leader.description}</p>
-                </Media>
-
-            </Media>
-        </div>
-        
-    );
+            </div>
+            
+        );
 }
 
 function About(props) {
+    if (props.leaders.isLoading) {
 
-    const leaders = props.leaders.map((leader) => {
         return (
-            <RenderLeader  key={leader.id} leader={leader} />
+            <div className="container">
+                <div className="row">
+                    <Loading />
+                </div>
+            </div>
         );
-    });
+    }
+    else if (props.leaders.errMess) {
+        return (
+            <h4>{props.leaders.errMess}</h4>
+        );
+    }
+    else {
+        const leaders = props.leaders.leaders.map((leader) => {
+            return (
+                <RenderLeader key={leader.id} leader={leader} />
+            );
+        });
 
     return(
         <div className="container">
@@ -87,6 +104,7 @@ function About(props) {
             </div>
         </div>
     );
+    }
 }
 
 export default About;    
