@@ -24,7 +24,7 @@ class Contact extends Component {
 
     handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        alert('Thank you for your feedback!\n ' + JSON.stringify(values));
         const feedback = {
             firstname: values.firstname,
             lastname: values.lastname,
